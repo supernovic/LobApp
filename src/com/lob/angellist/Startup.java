@@ -1,9 +1,11 @@
 package com.lob.angellist;
 
-import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
@@ -12,9 +14,9 @@ import java.util.List;
  */
 public class Startup {
 
-    private int ID;
+    private Long ID;
     private String name;
-    private int quality;
+    private Long quality;
     private String description;
     private String highConcept;
     private String companyURL;
@@ -22,21 +24,36 @@ public class Startup {
     private List<String> locations = new ArrayList<>();
     private String companySizeRange;
 
-    public Startup(JSONObject startupJSON) {
-        this.ID =  startupJSON.get("id");
+    public Startup(JSONObject startupJSON) throws ParseException {
+        this.ID =  (Long) startupJSON.get("id");
         this.name = (String) startupJSON.get("name");
         this.quality = (Long) startupJSON.get("quality");
         this.description = (String) startupJSON.get("product_desc");
         this.highConcept = (String) startupJSON.get("high_concept");
         this.companyURL = (String) startupJSON.get("company_url");
-        this.createDate = (Date) startupJSON.get("created_at");
-        JSONArray locationsTag = (JSONArray) startupJSON.get("locations:");
-        for (Object location : locationsTag) {
-            JSONObject locationJSON = (JSONObject) location;
-            String locationName = (String)locationJSON.get("name");
-            locations.add(locationName);
-        }
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
+        this.createDate = sdf.parse((String) startupJSON.get("created_at"));
+
+//        JSONArray locationsTag = (JSONArray) startupJSON.get("locations:");
+//        for (Object location : locationsTag) {
+//            JSONObject locationJSON = (JSONObject) location;
+//            String locationName = (String)locationJSON.get("name");
+//            locations.add(locationName);
+//        }
         this.companySizeRange = (String) startupJSON.get("company_size");
+    }
+
+    public static Comparator<Startup> COMPARE_BY_QUALITY = new Comparator<Startup>() {
+        public int compare(Startup s1, Startup s2) {
+            return s1.quality.compareTo(s2.quality);
+        }
+    };
+
+    @Override
+    public String toString() {
+        return "[Name: " + name + ", high_concept: " + highConcept + ", company_URL: "
+                + companyURL + "]";
     }
 
 }

@@ -20,4 +20,11 @@ public class Candidate {
         this.desiredSalary = (Long) candidateJSON.get("salary");
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 }
