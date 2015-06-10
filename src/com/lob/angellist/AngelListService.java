@@ -8,6 +8,8 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 /**
+ * AngelListService class that handles all API requests to AngelList endpoints.
+ *
  * Created by Victor on 6/9/2015.
  */
 public class AngelListService {
@@ -27,6 +29,7 @@ public class AngelListService {
 
             JSONObject responseJSON = (JSONObject) parser.parse(reader);
             startup = new Startup(responseJSON);
+
         } catch (Exception e) {
             throw new AngelListException(e);
         }

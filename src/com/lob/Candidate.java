@@ -3,6 +3,8 @@ package com.lob;
 import org.json.simple.JSONObject;
 
 /**
+ * Candidate model class representing an applicant parsed from a JSONObject.
+ *
  * Created by Victor Chang on 6/9/2015.
  */
 

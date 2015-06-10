@@ -11,6 +11,7 @@ import java.util.List;
 /**
  * Created by vchang on 6/10/15.
  */
+
 public class RecommendationEngine {
 
     public static List<Startup> getRecommendedStartups(Candidate candidate, AngelListService service, int[] companyIDs) throws AngelListException {
